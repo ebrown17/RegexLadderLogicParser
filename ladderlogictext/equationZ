@@ -27,3 +27,11 @@ Equation: P
   +-] [--+
 
 End Of Equation: P
+
+Equation [         BDA] Diagram in 1 piece:
+    
+       1_OK   BHA_1   BDA_1     _T       BDA
+    +--] [--+--]/[-----] [--+--]/[-------(R)
+            |               |               
+            | BHA_1   BHA_T |               
+            +--] [-----] [--+ 
