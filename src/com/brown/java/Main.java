@@ -15,7 +15,7 @@ public class Main {
 	static ArrayList<Integer> startIndex = new ArrayList<Integer>();
 	static ArrayList<Integer> endIndex = new ArrayList<Integer>();
 	static ArrayList<String> equation = new ArrayList<String>();
-	static Pattern pEq = Pattern.compile("(\\s+)?(([0-9]+)?(_)?[a-zA-Z]+(_)?([0-9]+)?)\\s+?(.*)");	
+	static Pattern pEq = Pattern.compile("[^+()\n-]+[_a-zA-Z0-9].*");	
 	
 	
 	//static String equation ="";
