@@ -26,9 +26,10 @@ public class Main {
 	
 	static ArrayList<EquationObject> equObjList = new ArrayList<EquationObject>();
 	static Pattern pEq = Pattern.compile("[^+()\n-]+[_a-zA-Z0-9].*");	
-	
+	static boolean newEqu = false;
+	static boolean ignore = false;
 	public static EquationObject equObj;
-
+	static String line;
 	
 	public static void main(String[] args){
 		
@@ -45,94 +46,41 @@ public class Main {
 			
 			
 			while(scanner.hasNext()){
-				lineNum++;
 				
-				String line = scanner.next();				
+				line = scanner.next();				
 				
-				if(line.contains("Equation"))continue;					
-				if(line.trim().isEmpty())continue;
+				if(line.contains("Equation")|| line.trim().isEmpty()){
+					continue;					
+				}
+			
 				
 				Matcher matcher = pEq.matcher(line);
 				if(matcher.find()){
 					
+					System.out.println(line);
 					
-					line=line.replaceAll("\\|", " ");
-								
-					if(nextEq==0){
+					while(scanner.hasNext()){
 						
-						String[] size = line.split("\\s");
+						line = scanner.next();
 						
-						for(int i=size.length-1; i>=0;i--){
-						
-							
-							if(size[i].toString().isEmpty())continue;
-							
-							equationUpper.add(size[i].toString());							
-						}	
-						nextEq++;
-					} else {
-						
-						String[] size = line.split("\\s");
-						
-						for(int i=size.length-1; i>=0;i--){
-							
-							if(size[i].toString().isEmpty())continue;
-							
-							equationLower.add(size[i].toString());
-						
-						} nextEq=0;
-					}
-					
-					
-					
-				}
-				else{
-					
-					/// here is where equation logic grabbing goes
-					
-					
-					if(nextEq%2==0){
-						
-						String name = equationUpper.poll();
-						
-						//System.out.format("Equation: %s", equationUpper.poll());
-					
-						Collections.reverse((List<?>) equationUpper);						
-						Collections.reverse((List<?>) equationLower);
-						
-						//System.out.print(" Variables are: ");
-						String[] equUpper = new String[equationUpper.size()];
-						int i=0;
-						while(equationUpper.peek()!=null){
-							//System.out.format("%s ", equationUpper.poll());
-							equUpper[i]=equationUpper.poll();
-							i++;
+						if(line.contains("Equation")|| line.trim().isEmpty()){
+							System.out.println("new equation");
+							break;
 						}
 						
-						String[] equLower = new String[equationLower.size()];
-						int j=0;
-						while(equationLower.peek()!=null){
-							//System.out.format("%s ", equationLower.poll());
-							equLower[j]=equationLower.poll();
-							j++;
-						}
-						
-						
-						equObj = new EquationObject(name, equUpper, equLower, null, null);
-						equObjList.add(equObj);
-						//System.out.format("Equation: %s Varables upper: %s Varables lower: %s \n", equObj.getEquName(),Arrays.toString(equObj.getEquVarsUpper()),Arrays.toString(equObj.getEquVarsLower()));
-						//System.out.println("new equation");
-					}
+						System.out.println(line);
+					}	
+					
+					
+					
+					
+					
 				}
 				
 			}
 			
-			for(EquationObject eq : equObjList){
-				
-			System.out.format("Equation: %s Varables upper: %s Varables lower: %s \n", eq.getEquName(),Arrays.toString(eq.getEquVarsUpper()),Arrays.toString(eq.getEquVarsLower()));
-			}	
 			
-			//System.out.println(equation.toString());
+			
 			
 	}
 
