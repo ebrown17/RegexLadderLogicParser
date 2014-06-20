@@ -3,17 +3,14 @@ package com.brown.java;
 public class EquationObject {
 	
 	private String equName=null;
-	private String[] equVarsUpper=null;
-	private String[] equVarsLower=null;
-	private String[] equLogicUpper=null;
-	private String[] equLogicLower=null;
-	
-	public EquationObject(String equName,String[] equVarsUpper, String[] equVarsLower,String[] equLogicUpper,String[] equLogicLower ){
+	private String[] equVariables=null;
+	private String[] equLogic=null;
+
+	public EquationObject(String equName,String[] equVariables, String[] equLogic ){
 		this.equName = equName;
-		this.equVarsUpper=equVarsUpper;
-		this.equVarsLower=equVarsLower;
-		this.equLogicUpper=equLogicUpper;
-		this.equLogicLower=equLogicLower;
+		this.equVariables=equVariables;
+		this.equLogic=equLogic;
+		
 		
 	}
 	
@@ -22,18 +19,13 @@ public class EquationObject {
 		return equName;
 	}
 	
-	public String[] getEquVarsUpper(){
-		return equVarsUpper;
+	public String[] getEquVars(){
+		return equVariables;
 	}
-	public String[] getEquVarsLower(){
-		return equVarsLower;
+	public String[] getequLogic(){
+		return equLogic;
 	}
-	public String[] getEquLogicUpper(){
-		return equLogicUpper;
-	}
-	public String[] getEquLogicLower(){
-		return equLogicLower;
-	}
+	
 	
 
 }

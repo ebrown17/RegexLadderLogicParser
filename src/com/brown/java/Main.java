@@ -16,24 +16,14 @@ public class Main {
 	
 	static Scanner scanner = null;
 	static String filename = "ladderlogictext/equationZ";
-	static int lineNum=0,nextEq=0;
-	
-	static ArrayList<Integer> startIndex = new ArrayList<Integer>();
-	static ArrayList<Integer> endIndex = new ArrayList<Integer>();
-	
-	static Queue<String> equationUpper = new LinkedList<String>();
-	static Queue<String> equationLower = new LinkedList<String>();
-	
+	static Queue<String> equationVariables = new LinkedList<String>();
+
 	static ArrayList<EquationObject> equObjList = new ArrayList<EquationObject>();
 	static Pattern pEq = Pattern.compile("[^+()\n-]+[_a-zA-Z0-9].*");	
-	static boolean newEqu = false;
-	static boolean ignore = false;
-	public static EquationObject equObj;
+	
 	static String line;
 	
 	public static void main(String[] args){
-		
-		
 		
 			try {
 				 scanner = new Scanner(new File (filename));
@@ -56,30 +46,43 @@ public class Main {
 				
 				Matcher matcher = pEq.matcher(line);
 				if(matcher.find()){
+				
+					equationVariables = ladderLogicUtil.getEquationName(line,equationVariables);
+					String name = equationVariables.poll();
+					Collections.reverse((List<?>) equationVariables);
+					equationVariables.add("|");
 					
-					System.out.println(line);
-					
-					while(scanner.hasNext()){
-						
+					while(scanner.hasNext()){						
 						line = scanner.next();
+						matcher=pEq.matcher(line);
 						
 						if(line.contains("Equation")|| line.trim().isEmpty()){
-							System.out.println("new equation");
+						
+							equObjList.add(ladderLogicUtil.getEquationObj(name, equationVariables, null));
+													
 							break;
 						}
 						
-						System.out.println(line);
+						if(matcher.find()){ // variables
+														
+							equationVariables = ladderLogicUtil.getRestOfVars(line,equationVariables);
+							equationVariables.add("|");
+						}
+						
+						if(line.contains("+") || line.contains("-")){ // equation
+							//System.out.println(line);
+						}
+						
 					}	
-					
-					
-					
-					
-					
+				
 				}
 				
 			}
 			
-			
+				for(EquationObject eq : equObjList){
+				
+				System.out.format("Equation: %s Varables: %s  \n", eq.getEquName(),Arrays.toString(eq.getEquVars()));
+				}	
 			
 			
 	}
